@@ -1,5 +1,7 @@
 # debian-jessie-zfs-root
-Installs Debian GNU/Linux 8 Jessie to a native ZFS root filesystem using a [Debian Live CD](https://www.debian.org/CD/live/) and ZFS packages from [backports.org](https://backports.debian.org/).
+Installs Debian GNU/Linux 8 Jessie to a native ZFS root filesystem using a [Debian Jessie Live CD](https://www.debian.org/CD/live/) and ZFS packages from [backports.org](https://backports.debian.org/).
+
+If you like this project, you may also want to try to [install a Debian Stretch ZFS root system](https://github.com/hn/debian-stretch-zfs-root).
 
 ## Usage
 
@@ -15,7 +17,7 @@ Installs Debian GNU/Linux 8 Jessie to a native ZFS root filesystem using a [Debi
 
 ## Fixes included
 
-* grub (v2.02, included in Debian 8), especially `grub-probe`, [does not support](https://github.com/zfsonlinux/grub/issues/19) [all ZFS features](http://savannah.gnu.org/bugs/?42861) and subsequently [refuses to install](https://bugs.launchpad.net/ubuntu/+source/grub2/+bug/1451476). This script disables `feature@hole_birth` and `feature@embedded_data` (and you should _not_ enable those features after installation).
+* grub (v2.02, included in Debian 8), especially `grub-probe`, [does not support](https://github.com/zfsonlinux/grub/issues/19) [all ZFS features](http://savannah.gnu.org/bugs/?42861) and subsequently [refuses to install](https://bugs.launchpad.net/ubuntu/+source/grub2/+bug/1451476). This script disables `feature@hole_birth` and `feature@embedded_data` (and you _must_ _not_ enable those features after installation).
 * The ZFS SPL uses the system `hostid`, [which isn't initialized correctly on Debian systems](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=595790).
 * Workaround for grub (v2.02) [mysteriously _not_ searching devices in `/dev/disk/by-id` but in `/dev`](https://github.com/zfsonlinux/grub/issues/5).
 * Some mountpoints, notably `/var`, need to be mounted via fstab as the ZFS mount script runs too late during boot.
