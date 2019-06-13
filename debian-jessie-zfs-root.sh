@@ -249,7 +249,7 @@ chroot /target /usr/bin/apt-get update
 GRUBPKG=grub-pc
 #GRUBPKG=grub-efi-amd64 # INCOMPLETE NOT TESTED
 
-chroot /target /usr/bin/apt-get install --yes vim linux-image-amd64 grub2-common $GRUBPKG zfs-initramfs zfs-dkms
+chroot /target /usr/bin/apt-get install --yes vim linux-image-amd64 grub2-common $GRUBPKG zfs-initramfs/$DIST-backports zfs-dkms/$DIST-backports
 grep -q zfs /target/etc/default/grub || perl -i -pe 's/quiet/boot=zfs quiet/' /target/etc/default/grub 
 chroot /target /usr/sbin/update-grub
 
