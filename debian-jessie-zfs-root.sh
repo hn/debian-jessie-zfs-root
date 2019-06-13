@@ -241,12 +241,14 @@ chroot /target /usr/sbin/locale-gen
 
 perl -i -pe 's/main$/main contrib non-free/' /target/etc/apt/sources.list
 cp -va /etc/apt/sources.list.d/$DIST-backports.list /target/etc/apt/sources.list.d/
+cp -va /etc/apt/apt.conf.d/apt.conf /target/etc/apt/apt.conf.d/
+
 chroot /target /usr/bin/apt-get update
 
 GRUBPKG=grub-pc
 #GRUBPKG=grub-efi-amd64 # INCOMPLETE NOT TESTED
 
-chroot /target /usr/bin/apt-get install --yes linux-image-amd64 grub2-common $GRUBPKG zfs-initramfs/$DIST-backports zfs-dkms/$DIST-backports
+chroot /target /usr/bin/apt-get install --yes vim linux-image-amd64 grub2-common $GRUBPKG zfs-initramfs zfs-dkms
 grep -q zfs /target/etc/default/grub || perl -i -pe 's/quiet/boot=zfs quiet/' /target/etc/default/grub 
 chroot /target /usr/sbin/update-grub
 
