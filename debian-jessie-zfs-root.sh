@@ -240,6 +240,7 @@ echo 'LANG="en_US.UTF-8"' > /target/etc/default/locale
 chroot /target /usr/sbin/locale-gen
 
 perl -i -pe 's/main$/main contrib non-free/' /target/etc/apt/sources.list
+cp -va /etc/apt/sources.list /target/etc/apt/
 cp -va /etc/apt/sources.list.d/$DIST-backports.list /target/etc/apt/sources.list.d/
 cp -va /etc/apt/apt.conf.d/apt.conf /target/etc/apt/apt.conf.d/
 
