@@ -128,8 +128,12 @@ if [ $(hostid | cut -b-6) == "007f01" ]; then
 fi
 
 cat << EOF >/etc/apt/sources.list.d/$DIST-backports.list
-deb http://http.debian.net/debian/ $DIST-backports main contrib non-free
-deb-src http://http.debian.net/debian/ $DIST-backports main contrib non-free
+deb http://archive.debian.org/debian/ $DIST-backports main contrib non-free
+deb-src http://archive.debian.org/debian/ $DIST-backports main contrib non-free
+EOF
+
+cat << EOF >/etc/apt/apt.conf.d/apt.conf
+Acquire::Check-Valid-Until "false";
 EOF
 
 # Woraround for grub mysteriously NOT searching devices in /dev/disk/by-id but in /dev
